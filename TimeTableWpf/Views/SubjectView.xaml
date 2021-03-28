@@ -1,0 +1,71 @@
+﻿<Page x:Class="TimeTableWpf.Views.SubjectView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TimeTableWpf.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="SubjectView">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <Style x:Key="ListViewStyle" 
+                   TargetType="{x:Type ListView}">
+                <Setter Property="Height"
+                            Value="60" />
+                <Setter Property="VerticalAlignment"
+                            Value="Center" />
+                <Setter Property="Margin"
+                            Value="0" />
+                <Setter Property="Background"
+                            Value="AliceBlue" />
+               
+            </Style>
+        </ResourceDictionary>
+    </Page.Resources>
+    
+    <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <Grid Grid.Row="0" >
+            <StackPanel Height="50" Margin="10" Background="Azure" Orientation="Horizontal">
+                <TextBlock Text="Search Subject" Margin="6" 
+                           FontSize="24" FontStyle="Italic" FontWeight="Bold"
+                           VerticalAlignment="Center"/>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1">
+        
+            <StackPanel Margin="10">
+
+                <StackPanel Orientation="Horizontal" Margin="4">
+                    <Label Content="Subject" />
+                    <TextBox x:Name="txtSubjectId" Text="{Binding subjectId}" Width="200" />
+                    <Button x:Name="btnGetSubject" Content ="Get Subject"  Margin="4,0,4,0"
+                            Command="{Binding GetSubjectCommand}"/>
+                </StackPanel>
+
+                <ListView x:Name="SubjectListView" Background="AliceBlue"  Margin="4" Height="300"
+                          ItemsSource="{Binding subjects}" Style="{StaticResource ListViewStyle}" >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding subjectId}" Foreground="DimGray"/>
+                                <TextBlock Text="{Binding subjectName}" Foreground="DimGray"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>
