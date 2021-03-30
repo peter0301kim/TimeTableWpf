@@ -48,7 +48,7 @@
 
                 <StackPanel Orientation="Horizontal" Margin="4">
                     <Label Content="Subject" />
-                    <TextBox x:Name="txtSubjectId" Text="{Binding SubjectId}" Width="200" />
+                    <TextBox x:Name="txtSubjectName" Text="{Binding SubjectName}" Width="200" />
                     <Button x:Name="btnGetSubject" Content ="Get Subject"  Margin="4,0,4,0"
                             Command="{Binding GetSubjectCommand}"/>
                 </StackPanel>

@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using TimeTableWpf.Models;
 
 namespace TimeTableWpf.Services.Subject
 {
@@ -22,7 +23,7 @@ namespace TimeTableWpf.Services.Subject
         {
             destUrl += "/null";
 
-            List<Models.Subject> subjects = new List<Models.Subject>();
+            List<Models.Subject> lstSubjects = new List<Models.Subject>();
             try
             {
                 var client = new RestClient(destUrl);
@@ -43,25 +44,32 @@ namespace TimeTableWpf.Services.Subject
 
                 string returnValue = response.Content;
 
-                subjects = JsonConvert.DeserializeObject<List<Models.Subject>>(response.Content);
+                var apiReturnValue = JsonConvert.DeserializeObject<ApiReturnValue<Subjects>>(response.Content);
+
+                lstSubjects = apiReturnValue.Object.Rows;
 
             }
             catch (Exception e)
             {
-                subjects = null;
+                lstSubjects = null;
             }
 
-            return subjects;
+            return lstSubjects;
         }
 
-        public async Task<List<Models.Subject>> GetAllSubjectsAsync(string destUrl, string token, string subjectId)
+        public async Task<List<Models.Subject>> GetAllSubjectsAsync(string destUrl, string token, string subjectName)
         {
-            if (subjectId != "null")
+            int pageSize = 100;
+            int pageNumber = 1;
+
+            if (string.IsNullOrEmpty(subjectName))
             {
-                destUrl += $"/{subjectId}";
+                subjectName = "null";
             }
 
-            List<Models.Subject> subjects = new List<Models.Subject>();
+            destUrl += $"/{subjectName}/{pageSize}/{pageNumber}";
+
+            List<Models.Subject> lstSubjects = new List<Models.Subject>();
             try
             {
                 var client = new RestClient(destUrl);
@@ -70,8 +78,9 @@ namespace TimeTableWpf.Services.Subject
                 //request.Resource = "{version}/token";
 
                 request.AddHeader("accept", "application/json");
-                //request.AddParameter("version", _version, ParameterType.UrlSegment);
-                request.AddParameter("id", subjectId);
+                //request.AddParameter("subjectName", subjectId);
+                //request.AddParameter("pageSize", 100);
+                //request.AddParameter("pageNumber", 1);
 
                 IRestResponse response = await client.ExecuteAsync(request);
 
@@ -82,15 +91,17 @@ namespace TimeTableWpf.Services.Subject
 
                 string returnValue = response.Content;
 
-                subjects = JsonConvert.DeserializeObject<List<Models.Subject>>(response.Content);
+                var apiReturnValue = JsonConvert.DeserializeObject<ApiReturnValue<Subjects>>(response.Content);
+
+                lstSubjects = apiReturnValue.Object.Rows;
 
             }
             catch (Exception e)
             {
-                subjects= null;
+                lstSubjects = null;
             }
 
-            return subjects;
+            return lstSubjects;
         }
     }
 }

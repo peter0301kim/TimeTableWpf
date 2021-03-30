@@ -17,11 +17,11 @@ namespace RoomNavi_wpf.ViewModel
     {
         ISubjectService SubjectService;
 
-        private string _subjectId;
-        public string SubjectId
+        private string _subjectName;
+        public string SubjectName
         {
-            get { return _subjectId; }
-            set { SetProperty(ref _subjectId, value); }
+            get { return _subjectName; }
+            set { SetProperty(ref _subjectName, value); }
         }
 
         private ObservableCollection<Subject> _subjects;
@@ -40,18 +40,18 @@ namespace RoomNavi_wpf.ViewModel
         {
             IsBusy = true;
 
-            var value = await SubjectService.GetAllSubjectsAsync(SettingsService.ApiSubjectUrl, "token", "null");
+            //var value = await SubjectService.GetAllSubjectsAsync(SettingsService.ApiSubjectUrl, "token", "null");
 
-            Subjects = new ObservableCollection<Subject>(value);
+            //Subjects = new ObservableCollection<Subject>(value);
 
             IsBusy = false;
         }
 
         public async Task GetAllSubjectsAsyncForTest(string subjectId, string token)
         {
-            var value = await SubjectService.GetAllSubjectsAsync(SettingsService.ApiSubjectUrl, token, subjectId);
+            //var value = await SubjectService.GetAllSubjectsAsync(SettingsService.ApiSubjectUrl, token, subjectId);
 
-            Subjects = new ObservableCollection<Subject>(value);
+            //Subjects = new ObservableCollection<Subject>(value);
 
         }
 
@@ -68,20 +68,11 @@ namespace RoomNavi_wpf.ViewModel
                 return;
             }
             */
-            string tmpSubjectId = "null";
-
-            if(SubjectId == null || SubjectId == "")
-            {
-                tmpSubjectId = "null";
-            }
-            else
-            {
-                tmpSubjectId = SubjectId;
-            }
 
             try
             {
-                var value = await SubjectService.GetAllSubjectsAsync(SettingsService.ApiSubjectUrl,SettingsService.AuthAccessToken, tmpSubjectId);
+                var value = await SubjectService.GetAllSubjectsAsync(SettingsService.ApiSubjectUrl,SettingsService.AuthAccessToken, SubjectName);
+
 
                 Subjects = new ObservableCollection<Subject>(value);
 

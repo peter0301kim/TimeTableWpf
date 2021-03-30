@@ -33,13 +33,13 @@ namespace RoomNavi_wpf.ViewModel
             IsMon = true;
         }
 
-        public ObservableCollection<TimeTable> timetables
+        public ObservableCollection<TimeTable> Timetables
         {
             get { return _timetables; }
             set { SetProperty(ref _timetables, value); }
         }
 
-        public string lecturerName
+        public string LecturerName
         {
             get { return _lecturerName; }
             set { SetProperty(ref _lecturerName, value); }
@@ -130,7 +130,7 @@ namespace RoomNavi_wpf.ViewModel
         private async Task GetLecturerTimetable()
         {
 
-            if(lecturerName == "" || lecturerName == null)
+            if(LecturerName == "" || LecturerName == null)
             {
                 MessageBoxResult result = MessageBox.Show("Please enter lecturer's name",
                                           "Info",
@@ -164,7 +164,7 @@ namespace RoomNavi_wpf.ViewModel
             dayOfWeeks = dayOfWeeks.Remove(dayOfWeeks.Length - 1);
 
 
-            string destUrl = Url + "/" + lecturerName + "/" + dayOfWeeks;
+            string destUrl = Url + "/" + LecturerName + "/" + dayOfWeeks;
 
             HttpClient client = new HttpClient();
             try
@@ -177,7 +177,7 @@ namespace RoomNavi_wpf.ViewModel
                 string content = result.ToString();
                 List<TimeTable> timeTables = JsonConvert.DeserializeObject<List<TimeTable>>(content);
 
-                timetables = new ObservableCollection<TimeTable>(timeTables);
+                Timetables = new ObservableCollection<TimeTable>(timeTables);
 
                 client.Dispose();
 
