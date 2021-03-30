@@ -31,6 +31,11 @@ namespace TimeTableWpf.Services.Settings
         private readonly string UrlIdentityDefault = GlobalSettings.Instance.BaseIdentityEndpoint;
         private readonly string UrlGatewayMarketingDefault = GlobalSettings.Instance.BaseGatewayMarketingEndpoint;
         private readonly string UrlGatewayShoppingDefault = GlobalSettings.Instance.BaseGatewayShoppingEndpoint;
+        public string ApiLecturerUrl { get; set; } = GlobalSettings.Instance.ApiBaseUrl + GlobalSettings.Instance.LecturerEndPoint;
+        public string ApiLecturerTimeTableUrl { get; set; } = GlobalSettings.Instance.ApiBaseUrl + GlobalSettings.Instance.LecturerTimeTableEndPoint;
+        public string ApiSubjectUrl { get; set; } = GlobalSettings.Instance.ApiBaseUrl + GlobalSettings.Instance.SubjectEndPoint;
+        public string ApiTimeTableUrl { get; set; } = GlobalSettings.Instance.ApiBaseUrl + GlobalSettings.Instance.TimeTableEndPoint;
+
         #endregion
 
         #region Settings Properties

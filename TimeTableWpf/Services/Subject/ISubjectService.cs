@@ -8,6 +8,6 @@ namespace TimeTableWpf.Services.Subject
 {
     public interface ISubjectService
     {
-        Task<ObservableCollection<Models.Subject>> GetAllSubjectsAsync(string subjectId, string token);
+        Task<List<Models.Subject>> GetAllSubjectsAsync(string destUrl, string token, string subjectId);
     }
 }

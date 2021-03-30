@@ -9,7 +9,7 @@ namespace TimeTableWpf.Services.Subject
 {
     public class SubjectMockService : ISubjectService
     {
-        private ObservableCollection<Models.Subject> MockSubjects = new ObservableCollection<Models.Subject>()
+        private List<Models.Subject> MockSubjects = new List<Models.Subject>()
         {
             new Models.Subject { SubjectId = "5C#W", SubjectName = "C# for Web Development" },
             new Models.Subject { SubjectId = "5DD",  SubjectName = "Database Design" },
@@ -18,25 +18,26 @@ namespace TimeTableWpf.Services.Subject
             new Models.Subject { SubjectId = "5TSD", SubjectName = "Team Software Development" }
         };
 
-        public async Task<ObservableCollection<Models.Subject>> GetAllSubjectsAsync(string sId, string token)
+        public async Task<List<Models.Subject>> GetAllSubjectsAsync(string destUrl, string token, string subjectId)
         {
             await Task.Delay(10);
 
             if (!string.IsNullOrEmpty(token))
             {
-                if (sId == "null")
+                if (subjectId == "null")
                 {
                     return MockSubjects;
                 }
                 else
                 {
-                    var tmpS = MockSubjects.Where(s => s.SubjectId.Contains(sId));
-                    ObservableCollection<Models.Subject> subjects = new ObservableCollection<Models.Subject>(tmpS);
-                    return subjects;
+                    var returnValue = (from s in MockSubjects
+                                       where s.SubjectId.Contains(subjectId)
+                                       select s).ToList();
+                    return returnValue;
                 }
             }
             else
-                return new ObservableCollection<Models.Subject>();
+                return new List<Models.Subject>();
         }
 
     }

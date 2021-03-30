@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace TimeTableWpf
@@ -13,7 +14,13 @@ namespace TimeTableWpf
         private string _baseIdentityEndpoint;
         private string _baseGatewayShoppingEndpoint;
         private string _baseGatewayMarketingEndpoint;
-
+        public string CurrentDirectory { get; set; }
+        public string DataConnectionSettingsPathFile { get; set; }
+        public string ApiBaseUrl { get; set; }
+        public string LecturerEndPoint { get; set; }
+        public string LecturerTimeTableEndPoint { get; set; }
+        public string SubjectEndPoint { get; set; }
+        public string TimeTableEndPoint { get; set; }
         public GlobalSettings()
         {
             AuthToken = "INSERT AUTHENTICATION TOKEN";
@@ -21,6 +28,16 @@ namespace TimeTableWpf
             BaseIdentityEndpoint = DefaultEndpoint;
             BaseGatewayShoppingEndpoint = DefaultEndpoint;
             BaseGatewayMarketingEndpoint = DefaultEndpoint;
+
+            CurrentDirectory = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+
+            DataConnectionSettingsPathFile = Path.Combine(CurrentDirectory, "DataConnectionSettings.json");
+
+            ApiBaseUrl = "https://localhost:44311";
+            LecturerEndPoint = "/api/Lecturer";
+            LecturerTimeTableEndPoint = "/api/LecturerTimeTable";
+            SubjectEndPoint = "/api/Subject";
+            TimeTableEndPoint = "/api/TimeTable";
         }
 
         public static GlobalSettings Instance { get; } = new GlobalSettings();
@@ -111,5 +128,11 @@ namespace TimeTableWpf
 
             return baseUri;
         }
+    }
+
+    public enum ConnectDataMode
+    {
+        Mock,
+        WebAPI
     }
 }

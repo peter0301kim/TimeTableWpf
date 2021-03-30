@@ -23,10 +23,10 @@ namespace TimeTableWpf
             _container.Register<ISettingsService, SettingsService>();
         }
 
-        public static void UpdateDependencies(bool useMockServices)
+        public static void UpdateDependencies(DataConnectionSettings dataConnectionSettings)
         {
 
-            if (useMockServices)
+            if (dataConnectionSettings.DataConnectionMode == DataConnectionMode.Mock)
             {
                 _container.Register<ILogInService, LogInMockService>();
                 _container.Register<ILecturerService, LecturerMockService>();
@@ -35,7 +35,7 @@ namespace TimeTableWpf
                 _container.Register<ITimeTableService, TimeTableMockService>();
 
             }
-            else
+            else if(dataConnectionSettings.DataConnectionMode == DataConnectionMode.WebAPI)
             {
                 _container.Register<ILogInService, LogInService>();
                 _container.Register<ILecturerService, LecturerService>();

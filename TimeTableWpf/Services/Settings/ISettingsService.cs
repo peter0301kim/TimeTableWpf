@@ -18,6 +18,12 @@ namespace TimeTableWpf.Services.Settings
         string Longitude { get; set; }
         bool AllowGpsLocation { get; set; }
 
+        string ApiLecturerUrl { get; set; } 
+        string ApiLecturerTimeTableUrl { get; set; }
+        string ApiSubjectUrl { get; set; }
+        string ApiTimeTableUrl { get; set; }
+
+
         bool GetValueOrDefault(string key, bool defaultValue);
         string GetValueOrDefault(string key, string defaultValue);
         Task AddOrUpdateValue(string key, bool value);

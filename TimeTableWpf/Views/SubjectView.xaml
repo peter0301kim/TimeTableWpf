@@ -48,18 +48,18 @@
 
                 <StackPanel Orientation="Horizontal" Margin="4">
                     <Label Content="Subject" />
-                    <TextBox x:Name="txtSubjectId" Text="{Binding subjectId}" Width="200" />
+                    <TextBox x:Name="txtSubjectId" Text="{Binding SubjectId}" Width="200" />
                     <Button x:Name="btnGetSubject" Content ="Get Subject"  Margin="4,0,4,0"
                             Command="{Binding GetSubjectCommand}"/>
                 </StackPanel>
 
                 <ListView x:Name="SubjectListView" Background="AliceBlue"  Margin="4" Height="300"
-                          ItemsSource="{Binding subjects}" Style="{StaticResource ListViewStyle}" >
+                          ItemsSource="{Binding Subjects}" Style="{StaticResource ListViewStyle}" >
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <StackPanel>
-                                <TextBlock Text="{Binding subjectId}" Foreground="DimGray"/>
-                                <TextBlock Text="{Binding subjectName}" Foreground="DimGray"/>
+                                <TextBlock Text="{Binding SubjectId}" Foreground="DimGray"/>
+                                <TextBlock Text="{Binding SubjectName}" Foreground="DimGray"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>

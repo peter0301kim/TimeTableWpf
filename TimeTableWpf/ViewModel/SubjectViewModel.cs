@@ -8,24 +8,24 @@ using TimeTableWpf.ViewModels.Base;
 using TimeTableWpf.Services.Subject;
 using TimeTableWpf.Models;
 using TimeTableWpf.ViewModel.Base;
+using TimeTableWpf;
+using System.Collections.Generic;
 
 namespace RoomNavi_wpf.ViewModel
 {
     public class SubjectViewModel : BaseViewModel
     {
-        ISubjectService _subjectService;
+        ISubjectService SubjectService;
 
         private string _subjectId;
-        private ObservableCollection<Subject> _subjects;
-
         public string SubjectId
         {
             get { return _subjectId; }
             set { SetProperty(ref _subjectId, value); }
         }
 
-
-        public ObservableCollection<Subject> subjects
+        private ObservableCollection<Subject> _subjects;
+        public ObservableCollection<Subject> Subjects
         {
             get { return _subjects; }
             set { SetProperty(ref _subjects, value); }
@@ -33,25 +33,26 @@ namespace RoomNavi_wpf.ViewModel
 
         public SubjectViewModel()
         {
-
-        }
-        public SubjectViewModel(ISubjectService subjectService)
-        {
-            _subjectService = subjectService;
+            SubjectService = DependencyInjector.Resolve<ISubjectService>();
         }
 
         public override async Task InitializeAsync(object navigationData)
         {
             IsBusy = true;
 
-            subjects = await _subjectService.GetAllSubjectsAsync("null","token");
+            var value = await SubjectService.GetAllSubjectsAsync(SettingsService.ApiSubjectUrl, "token", "null");
+
+            Subjects = new ObservableCollection<Subject>(value);
 
             IsBusy = false;
         }
 
         public async Task GetAllSubjectsAsyncForTest(string subjectId, string token)
         {
-            subjects = await _subjectService.GetAllSubjectsAsync(subjectId, token);
+            var value = await SubjectService.GetAllSubjectsAsync(SettingsService.ApiSubjectUrl, token, subjectId);
+
+            Subjects = new ObservableCollection<Subject>(value);
+
         }
 
         public ICommand GetSubjectCommand => new RelayCommand(async () => await GetSubject());
@@ -80,7 +81,10 @@ namespace RoomNavi_wpf.ViewModel
 
             try
             {
-                subjects = await _subjectService.GetAllSubjectsAsync(tmpSubjectId, SettingsService.AuthAccessToken);
+                var value = await SubjectService.GetAllSubjectsAsync(SettingsService.ApiSubjectUrl,SettingsService.AuthAccessToken, tmpSubjectId);
+
+                Subjects = new ObservableCollection<Subject>(value);
+
             }
             catch (Exception ex)
             {

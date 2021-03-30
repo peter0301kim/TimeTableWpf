@@ -7,6 +7,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using Newtonsoft.Json;
 
 namespace TimeTableWpf
 {
@@ -20,9 +21,13 @@ namespace TimeTableWpf
         {
             InitializeComponent();
 
-            DependencyInjector.UpdateDependencies(true);
-            SettingsService = DependencyInjector.Resolve<ISettingsService>();
 
+            string dcFile = GlobalSettings.Instance.DataConnectionSettingsPathFile;
+            var dataConnectionSettings = JsonConvert.DeserializeObject<DataConnectionSettings>(System.IO.File.ReadAllText(dcFile));
+
+            DependencyInjector.UpdateDependencies(dataConnectionSettings);
+
+            SettingsService = DependencyInjector.Resolve<ISettingsService>();
         }
 
     }

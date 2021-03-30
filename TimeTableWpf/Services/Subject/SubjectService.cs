@@ -1,7 +1,9 @@
 ﻿using Newtonsoft.Json;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -11,74 +13,81 @@ namespace TimeTableWpf.Services.Subject
 {
     public class SubjectService : ISubjectService
     {
-        private string Url = "https://rntwebservicefortafesa20190611083115.azurewebsites.net/api/subject";
-
         public SubjectService()
         {
 
         }
 
-        public async Task<ObservableCollection<Models.Subject>> GetAllSubjectsAsync(string token)
+        public async Task<List<Models.Subject>> GetAllSubjectsAsync(string destUrl, string token)
         {
-            HttpClient client = new HttpClient();
+            destUrl += "/null";
 
-            string destUrl = Url + "/null";
-
-            var subjects = new ObservableCollection<Models.Subject>();
-
+            List<Models.Subject> subjects = new List<Models.Subject>();
             try
             {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                var client = new RestClient(destUrl);
+                var request = new RestRequest(Method.GET);
 
-                var result = await client.GetStringAsync(destUrl); // Call WebAPI
+                //request.Resource = "{version}/token";
 
-                string content = result.ToString();
+                request.AddHeader("accept", "application/json");
+                //request.AddParameter("version", _version, ParameterType.UrlSegment);
+                //request.AddParameter("id", subjectId);
 
-                List<Models.Subject> results = JsonConvert.DeserializeObject<List<Models.Subject>>(content);
+                IRestResponse response = client.Execute(request);
 
-                subjects = new ObservableCollection<Models.Subject>(results);
+                if (response.StatusCode != HttpStatusCode.OK)
+                {
+                    throw new Exception(response.Content.ToString());
+                }
 
-                client.Dispose();
+                string returnValue = response.Content;
+
+                subjects = JsonConvert.DeserializeObject<List<Models.Subject>>(response.Content);
+
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                string strErr = ex.ToString();
-                client.Dispose();
-
-                throw new Exception(strErr);
+                subjects = null;
             }
 
             return subjects;
         }
 
-        public async Task<ObservableCollection<Models.Subject>> GetAllSubjectsAsync(string subjectId, string token)
+        public async Task<List<Models.Subject>> GetAllSubjectsAsync(string destUrl, string token, string subjectId)
         {
-            HttpClient client = new HttpClient();
+            if (subjectId != "null")
+            {
+                destUrl += $"/{subjectId}";
+            }
 
-            string destUrl = Url + "/" + subjectId;
-
-            var subjects = new ObservableCollection<Models.Subject>();
-
+            List<Models.Subject> subjects = new List<Models.Subject>();
             try
             {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                var client = new RestClient(destUrl);
+                var request = new RestRequest(Method.GET);
 
-                var result = await client.GetStringAsync(destUrl); // Call WebAPI
+                //request.Resource = "{version}/token";
 
-                string content = result.ToString();
+                request.AddHeader("accept", "application/json");
+                //request.AddParameter("version", _version, ParameterType.UrlSegment);
+                request.AddParameter("id", subjectId);
 
-                List<Models.Subject> results = JsonConvert.DeserializeObject<List<Models.Subject>>(content);
+                IRestResponse response = await client.ExecuteAsync(request);
 
-                subjects = new ObservableCollection<Models.Subject>(results);
+                if (response.StatusCode != HttpStatusCode.OK)
+                {
+                    throw new Exception(response.Content.ToString());
+                }
 
-                client.Dispose();
+                string returnValue = response.Content;
+
+                subjects = JsonConvert.DeserializeObject<List<Models.Subject>>(response.Content);
+
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                string strErr = ex.ToString();
-                client.Dispose();
-
-                throw new Exception(strErr);
+                subjects= null;
             }
 
             return subjects;
