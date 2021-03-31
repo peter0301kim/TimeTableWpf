@@ -18,15 +18,16 @@ namespace TimeTableWpf.Views
     /// <summary>
     /// Interaction logic for TimetableView.xaml
     /// </summary>
-    public partial class TimetableView : Page
+    public partial class TimeTableView : Page
     {
-        TimetableViewModel viewModel;
-        public TimetableView()
+        TimeTableViewModel viewModel;
+        public TimeTableView()
         {
             InitializeComponent();
-            viewModel = new TimetableViewModel();
+            viewModel = new TimeTableViewModel();
             viewModel.Navigation = this.NavigationService;
             DataContext = viewModel;
         }
+
     }
 }

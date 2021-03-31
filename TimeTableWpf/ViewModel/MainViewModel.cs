@@ -47,14 +47,13 @@ namespace RoomNavi_wpf.ViewModel
             }
             else
             {
-                var viewModel = DependencyInjector.Resolve<SubjectViewModel>();
                 Navigation.Navigate(new SubjectView());
             }
 
         }
 
-        public ICommand TimetableCommand => new RelayCommand(async () => await OnTimetableCommand());
-        private async Task OnTimetableCommand()
+        public ICommand TimeTableCommand => new RelayCommand(async () => await OnTimeTableCommand());
+        private async Task OnTimeTableCommand()
         {
             if (SettingsService.AuthAccessToken == "")
             {
@@ -62,8 +61,7 @@ namespace RoomNavi_wpf.ViewModel
             }
             else
             {
-                var viewModel = DependencyInjector.Resolve<TimetableViewModel>();
-                Navigation.Navigate(new TimetableView());
+                Navigation.Navigate(new TimeTableView());
             }
         }
 

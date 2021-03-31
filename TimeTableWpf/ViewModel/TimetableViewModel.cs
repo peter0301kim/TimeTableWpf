@@ -15,7 +15,7 @@ using TimeTableWpf.Views;
 
 namespace TimeTableWpf.ViewModel
 {
-    public class TimetableViewModel : BaseViewModel
+    public class TimeTableViewModel : BaseViewModel
     {
         ISettingsService _settingsService;
 
@@ -29,7 +29,7 @@ namespace TimeTableWpf.ViewModel
 
         private string Url = "https://rntwebservicefortafesa20190611083115.azurewebsites.net/api/Timetable";
 
-        public TimetableViewModel()
+        public TimeTableViewModel()
         {
             SetDayOfWeek();
         }

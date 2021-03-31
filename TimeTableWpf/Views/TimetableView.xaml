@@ -1,4 +1,4 @@
-﻿<Page x:Class="TimeTableWpf.Views.TimetableView"
+﻿<Page x:Class="TimeTableWpf.Views.TimeTableView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -37,7 +37,7 @@
 
         <Grid Grid.Row="0" >
             <StackPanel Height="50" Margin="10" Background="Azure" Orientation="Horizontal">
-                <TextBlock Text="Search Timetable" Margin="6" 
+                <TextBlock Text="Search Time Table" Margin="6" 
                            FontSize="24" FontStyle="Italic" FontWeight="Bold"
                            VerticalAlignment="Center"/>
             </StackPanel>
@@ -58,26 +58,26 @@
                     <ComboBox x:Name="cboDayOfWeek" Text="Select a Day of week" ItemsSource="{Binding dayofweek}" Width="200" 
                         SelectedItem="{Binding selectedDayOfWeek}">
                     </ComboBox>
-                    <Button x:Name="btnGetTimetable" Content ="Time Table" Margin="4,0,0,0" Width="100" Command="{Binding GetTimetableCommand}"/>
+                    <Button x:Name="btnGetTimeTable" Content ="Time Table" Margin="4,0,0,0" Width="100" Command="{Binding GetTimeTableCommand}" />
                 </StackPanel>
 
 
-                <ListView x:Name="SubjectListView" Background="AliceBlue"  Margin="4" Height="300"
-                          ItemsSource="{Binding timetables}" Style="{StaticResource ListViewStyle}" >
+                <ListView x:Name="SubjectListView" Background="AliceBlue"  Margin="4" Height="260"
+                          ItemsSource="{Binding Timetables}" Style="{StaticResource ListViewStyle}" >
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <StackPanel>
                                 <StackPanel>
-                                    <TextBlock Text="{Binding classTime}" Foreground="DimGray" Background="LightYellow"/>
-                                    <TextBlock Text="{Binding lecturerId}" Foreground="DimGray"/>
-                                    <TextBlock Text="{Binding lecturerName}" Foreground="DimGray"/>
-                                    <TextBlock Text="{Binding subjectDesc}" Foreground="DimGray"/>
+                                    <TextBlock Text="{Binding ClassTime}" Foreground="DimGray" Background="LightYellow"/>
+                                    <TextBlock Text="{Binding LecturerId}" Foreground="DimGray"/>
+                                    <TextBlock Text="{Binding LecturerName}" Foreground="DimGray"/>
+                                    <TextBlock Text="{Binding SubjectDesc}" Foreground="DimGray"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="Start term : " Foreground="DimGray"/>
-                                    <TextBlock Text="{Binding startTerm}" Foreground="DimGray"/>
+                                    <TextBlock Text="{Binding StartTerm}" Foreground="DimGray"/>
                                     <TextBlock Text=", End Term : " Foreground="DimGray"/>
-                                    <TextBlock Text="{Binding endTerm}" Foreground="DimGray"/>
+                                    <TextBlock Text="{Binding EndTerm}" Foreground="DimGray"/>
                                 </StackPanel>
                             </StackPanel>
 

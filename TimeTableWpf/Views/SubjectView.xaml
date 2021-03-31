@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:TimeTableWpf.Views"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="600" d:DesignWidth="1000"
       Title="SubjectView">
 
     <Page.Resources>
@@ -49,11 +49,11 @@
                 <StackPanel Orientation="Horizontal" Margin="4">
                     <Label Content="Subject" />
                     <TextBox x:Name="txtSubjectName" Text="{Binding SubjectName}" Width="200" />
-                    <Button x:Name="btnGetSubject" Content ="Get Subject"  Margin="4,0,4,0"
+                    <Button x:Name="btnGetSubject" Content ="Get Subject"  Margin="4,0,4,0" Width="100"
                             Command="{Binding GetSubjectCommand}"/>
                 </StackPanel>
 
-                <ListView x:Name="SubjectListView" Background="AliceBlue"  Margin="4" Height="300"
+                <ListView x:Name="SubjectListView" Background="AliceBlue"  Margin="4" Height="460"
                           ItemsSource="{Binding Subjects}" Style="{StaticResource ListViewStyle}" >
                     <ListView.ItemTemplate>
                         <DataTemplate>

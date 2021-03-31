@@ -65,7 +65,7 @@ namespace TimeTableWpf
 
         private void timetableListItem_DblClick(object sender, MouseButtonEventArgs e)
         {
-            this.frmMain.NavigationService.Navigate(new TimetableView());
+            this.frmMain.NavigationService.Navigate(new TimeTableView());
         }
 
         private void lecturerListItem_DblClick(object sender, MouseButtonEventArgs e)
