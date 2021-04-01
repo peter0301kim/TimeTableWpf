@@ -1,5 +1,5 @@
 # TimeTableWpf
 
-[MVVM](https://drive.google.com/file/d/1-tLblcpiJf1PWNkfalxYJoer_zlcRs9x/view?usp=sharing)
+[MVVM](https://1drv.ms/w/s!AgwrFyGtO33_h2xVHpPsIiIg-owV?e=LyVZ1u)
 
-[Dependency Injection](https://drive.google.com/file/d/1xS0RzpZvV1BlIaGRnqKbpd_CGkDfeTUy/view?usp=sharing)
+[Dependency Injection](https://1drv.ms/w/s!AgwrFyGtO33_h24msRj_UU5GRBqO?e=EUSHQY)
