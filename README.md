@@ -1,4 +1,4 @@
-# RoomNavi_wpf
+# TimeTableWpf
 
 [MVVM](https://drive.google.com/file/d/1-tLblcpiJf1PWNkfalxYJoer_zlcRs9x/view?usp=sharing)
 
