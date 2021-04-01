@@ -7,6 +7,6 @@ namespace TimeTableWpf.Services.LecturerTimeTable
 {
     public interface ILecturerTimeTableService
     {
-        Task<List<Models.TimeTable>> GetAllLecturerTimeTableAsync(string timeTableApiUrl, string token);
+        Task<List<Models.TimeTable>> GetAllLecturerTimeTableAsync(string token, string timeTableApiUrl, string param);
     }
 }

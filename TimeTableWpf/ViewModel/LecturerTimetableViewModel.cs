@@ -11,11 +11,15 @@ using System.Windows.Input;
 using TimeTableWpf.ViewModels.Base;
 using TimeTableWpf.Models;
 using TimeTableWpf.ViewModel.Base;
+using TimeTableWpf.Services.LecturerTimeTable;
+using TimeTableWpf;
 
 namespace RoomNavi_wpf.ViewModel
 {
     public class LecturerTimetableViewModel : BaseViewModel
     {
+        ILecturerTimeTableService LecturerTimeTableService;
+
         private string _lecturerName;
 
         private bool _isMon;
@@ -30,10 +34,12 @@ namespace RoomNavi_wpf.ViewModel
 
         public LecturerTimetableViewModel()
         {
+            LecturerTimeTableService = DependencyInjector.Resolve<ILecturerTimeTableService>();
+
             IsMon = true;
         }
 
-        public ObservableCollection<TimeTable> Timetables
+        public ObservableCollection<TimeTable> TimeTables
         {
             get { return _timetables; }
             set { SetProperty(ref _timetables, value); }
@@ -125,9 +131,9 @@ namespace RoomNavi_wpf.ViewModel
             }
         }
 
-        public ICommand GetLecturerTimetableCommand => new RelayCommand(async () => await GetLecturerTimetable());
+        public ICommand GetLecturerTimeTableCommand => new RelayCommand(async () => await GetLecturerTimeTable());
 
-        private async Task GetLecturerTimetable()
+        private async Task GetLecturerTimeTable()
         {
 
             if(LecturerName == "" || LecturerName == null)
@@ -163,40 +169,30 @@ namespace RoomNavi_wpf.ViewModel
 
             dayOfWeeks = dayOfWeeks.Remove(dayOfWeeks.Length - 1);
 
+            string param = $"/{LecturerName}/{dayOfWeeks}";
 
-            string destUrl = Url + "/" + LecturerName + "/" + dayOfWeeks;
-
-            HttpClient client = new HttpClient();
             try
             {
+                var value = await LecturerTimeTableService.GetAllLecturerTimeTableAsync(SettingsService.AuthAccessToken, SettingsService.ApiLecturerTimeTableUrl, param);
 
-                string token = SettingsService.AuthAccessToken;
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-
-                var result = await client.GetStringAsync(destUrl);
-                string content = result.ToString();
-                List<TimeTable> timeTables = JsonConvert.DeserializeObject<List<TimeTable>>(content);
-
-                Timetables = new ObservableCollection<TimeTable>(timeTables);
-
-                client.Dispose();
+                TimeTables = new ObservableCollection<TimeTable>(value);
 
             }
             catch (Exception ex)
             {
-                string checkResult = "Error " + ex.ToString();
+                string strErr = "Error " + ex.ToString();
 
-                if (checkResult.IndexOf("Unauthorized") > 0)
+
+                if (strErr.IndexOf("Unauthorized") > 0)
                 {
-                    MessageBoxResult result = MessageBox.Show("Unauthorized","Error",MessageBoxButton.OK,MessageBoxImage.Question);
+                    MessageBoxResult result = MessageBox.Show("Please, Log in again.", "Unauthorized", MessageBoxButton.OK, MessageBoxImage.Question);
                     SettingsService.AuthAccessToken = "";
                 }
                 else
                 {
-                    MessageBoxResult result = MessageBox.Show(checkResult,"Error",MessageBoxButton.OK,MessageBoxImage.Question);
-
+                    MessageBoxResult result = MessageBox.Show(strErr, "Error", MessageBoxButton.OK, MessageBoxImage.Question);
                 }
-                client.Dispose();
+
             }
         }
 

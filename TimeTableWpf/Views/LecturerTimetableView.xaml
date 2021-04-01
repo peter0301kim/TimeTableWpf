@@ -29,12 +29,12 @@
     <Grid>
         <StackPanel  Margin="10">
 
-            <TextBlock Text=" Search Lecturer Timetable" Background="Azure" FontSize="20"/>
+            <TextBlock Text=" Search Lecturer Time Table" Background="Azure" FontSize="20"/>
 
             <StackPanel  Orientation="Horizontal">
                 <Label Content="Name" />
-                <TextBlock x:Name="txtLecturerName" Text="{Binding lecturerName}" />
-                <Button x:Name="btnGetLecturerTimetable"  Content="Search" Command="{Binding GetLecturerTimetableCommand}"/>
+                <TextBox x:Name="txtLecturerName" Width="200" Text="{Binding LecturerName}" />
+                <Button x:Name="btnGetLecturerTimetable"  Width="100" Content="Search" Command="{Binding GetLecturerTimeTableCommand}"/>
             </StackPanel>
 
             <StackPanel  Orientation="Horizontal">
@@ -68,27 +68,27 @@
                 </Grid>
             </StackPanel>
 
-            <ListView x:Name="timetableListView" ItemsSource="{Binding timetables}"  Style="{StaticResource TimetableListStyle}">
+            <ListView x:Name="timetableListView" ItemsSource="{Binding TimeTables}"  Style="{StaticResource TimetableListStyle}">
 
                 <ListView.ItemTemplate>
                     <DataTemplate>
 
                                 <StackPanel Margin="6">
                                     <StackPanel Orientation="Horizontal">
-                                        <Label Content="{Binding dayOfWeek}" Foreground="DimGray" Background="LightYellow"/>
-                                        <Label Content="{Binding classTime}" Foreground="DimGray" Background="LightYellow"/>
-                                        <Label Content="{Binding classRoom}" Foreground="DimGray" Background="LightYellow"/>
-                                        <Label Visibility="Hidden" Content="{Binding lecturerId}" Foreground="DimGray"/>
-                                        <Label Content="{Binding lecturerName}" Foreground="DimGray"/>
+                                        <Label Content="{Binding DayOfWeek}" Foreground="DimGray" Background="LightYellow"/>
+                                        <Label Content="{Binding ClassTime}" Foreground="DimGray" Background="LightYellow"/>
+                                        <Label Content="{Binding ClassRoom}" Foreground="DimGray" Background="LightYellow"/>
+                                        <Label Visibility="Hidden" Content="{Binding LecturerId}" Foreground="DimGray"/>
+                                        <Label Content="{Binding LecturerName}" Foreground="DimGray"/>
                                     </StackPanel>
                                     <StackPanel>
-                                        <Label Content="{Binding subjectDesc}" Foreground="DimGray"/>
+                                        <Label Content="{Binding SubjectDesc}" Foreground="DimGray"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <Label Content="Start term : " />
-                                        <Label Content="{Binding startTerm}" Foreground="DimGray"/>
+                                        <Label Content="{Binding StartTerm}" Foreground="DimGray"/>
                                         <Label Content=", End Term : " Foreground="DimGray"/>
-                                        <Label Content="{Binding endTerm}" Foreground="DimGray"/>
+                                        <Label Content="{Binding EndTerm}" Foreground="DimGray"/>
                                     </StackPanel>
 
                                 </StackPanel>

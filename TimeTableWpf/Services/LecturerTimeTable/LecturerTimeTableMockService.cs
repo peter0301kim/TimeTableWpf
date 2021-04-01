@@ -7,7 +7,7 @@ namespace TimeTableWpf.Services.LecturerTimeTable
 {
     public class LecturerTimeTableMockService : ILecturerTimeTableService
     {
-        public async Task<List<Models.TimeTable>> GetAllLecturerTimeTableAsync(string timeTableApiUrl, string token)
+        public async Task<List<Models.TimeTable>> GetAllLecturerTimeTableAsync(string token, string timeTableApiUrl, string param)
         {
             return await Task.Run(() =>
             {
