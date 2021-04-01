@@ -12,12 +12,13 @@ using TimeTableWpf.ViewModels.Base;
 using TimeTableWpf.Models;
 using TimeTableWpf.ViewModel.Base;
 using TimeTableWpf.Views;
+using TimeTableWpf.Services.TimeTable;
 
 namespace TimeTableWpf.ViewModel
 {
     public class TimeTableViewModel : BaseViewModel
     {
-        ISettingsService _settingsService;
+        ITimeTableService TimeTableService;
 
         private string _campus;
         private string _classroom;
@@ -31,6 +32,8 @@ namespace TimeTableWpf.ViewModel
 
         public TimeTableViewModel()
         {
+            TimeTableService = DependencyInjector.Resolve<ITimeTableService>();
+
             SetDayOfWeek();
         }
 
@@ -48,7 +51,7 @@ namespace TimeTableWpf.ViewModel
             Dayofweek = weekList;
         }
 
-        public ObservableCollection<TimeTable> Timetables
+        public ObservableCollection<TimeTable> TimeTables
         {
             get { return _timetables; }
             set { SetProperty(ref _timetables, value); }
@@ -78,7 +81,7 @@ namespace TimeTableWpf.ViewModel
             set { SetProperty(ref _selectedDayOfWeek, value); }
         }
 
-        public ICommand GetTimetableCommand => new RelayCommand(async () => await GetTimetable());
+        public ICommand GetTimeTableCommand => new RelayCommand(async () => await GetTimetable());
 
         private async Task GetTimetable()
         {
@@ -110,7 +113,32 @@ namespace TimeTableWpf.ViewModel
                 // Connection to internet is available
             }
             */
-            string destUrl = Url + "/" + Campus + "/" + Classroom + "/" + SelectedDayOfWeek;
+            string param = $"/{Campus}/{Classroom}/{SelectedDayOfWeek}";
+
+            try
+            {
+                var value = await TimeTableService.GetAllTimeTableAsync(SettingsService.AuthAccessToken, SettingsService.ApiTimeTableUrl, param);
+
+                TimeTables = new ObservableCollection<TimeTable>(value);
+
+            }
+            catch (Exception ex)
+            {
+                string strErr = "Error " + ex.ToString();
+
+
+                if (strErr.IndexOf("Unauthorized") > 0)
+                {
+                    MessageBoxResult result = MessageBox.Show("Please, Log in again.", "Unauthorized", MessageBoxButton.OK, MessageBoxImage.Question);
+                    SettingsService.AuthAccessToken = "";
+                }
+                else
+                {
+                    MessageBoxResult result = MessageBox.Show(strErr, "Error", MessageBoxButton.OK, MessageBoxImage.Question);
+                }
+
+            }
+
 
             /*
             HttpClient client = new HttpClient();

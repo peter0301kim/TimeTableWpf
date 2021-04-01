@@ -18,20 +18,20 @@ namespace TimeTableWpf.Services.Subject
             new Models.Subject { SubjectId = "5TSD", SubjectName = "Team Software Development" }
         };
 
-        public async Task<List<Models.Subject>> GetAllSubjectsAsync(string destUrl, string token, string subjectId)
+        public async Task<List<Models.Subject>> GetAllSubjectsAsync(string token, string destUrl, string subjectName)
         {
             await Task.Delay(10);
 
             if (!string.IsNullOrEmpty(token))
             {
-                if (subjectId == "null")
+                if (subjectName == "null")
                 {
                     return MockSubjects;
                 }
                 else
                 {
                     var returnValue = (from s in MockSubjects
-                                       where s.SubjectId.Contains(subjectId)
+                                       where s.SubjectId.Contains(subjectName)
                                        select s).ToList();
                     return returnValue;
                 }

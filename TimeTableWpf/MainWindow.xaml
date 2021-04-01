@@ -96,7 +96,7 @@
                                                          Height="25" Width="25"
                                                          Foreground="White"
                                                          VerticalAlignment="Center"/>
-                                <TextBlock Text="Timetable" VerticalAlignment="Center"
+                                <TextBlock Text="Time Table" VerticalAlignment="Center"
                                            HorizontalAlignment="Center" 
                                            Margin="15" FontSize="18" Foreground="WhiteSmoke"></TextBlock>
 
@@ -134,7 +134,7 @@
             
             <!-- Header -->
             <Grid  Grid.Row="0" Grid.Column="0" Height="50">
-                <TextBlock Text="Timetable" 
+                <TextBlock Text="Time Table" 
                                 FontSize="24" Foreground="White" 
                                 VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
             </Grid>

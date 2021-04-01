@@ -13,13 +13,13 @@ namespace TimeTableWpf.Services.TimeTable
     public class TimeTableService : ITimeTableService
     {
 
-        public async Task<List<Models.TimeTable>> GetAllTimeTableAsync(string timeTableApiUrl, string token)
+        public async Task<List<Models.TimeTable>> GetAllTimeTableAsync(string token, string timeTableApiUrl, string param)
         {
             List<Models.TimeTable> timeTables;
             try
             {
                 var client = new RestClient(timeTableApiUrl);
-                var request = new RestRequest(Method.GET);
+                var request = new RestRequest(param, Method.GET);
 
                 request.AddHeader("authorization", "Bearer " + token);
                 request.AddHeader("accept", "application/json");
@@ -29,9 +29,9 @@ namespace TimeTableWpf.Services.TimeTable
                 {
                     throw new Exception(response.Content.ToString());
                 }
-                string responseContent = response.Content;
-                timeTables = JsonConvert.DeserializeObject<List<Models.TimeTable>>(responseContent);
 
+                var apiReturnValue = JsonConvert.DeserializeObject<ApiReturnValue<TimeTables>>(response.Content);
+                timeTables = apiReturnValue.Object.Rows;
             }
             catch (Exception)
             {

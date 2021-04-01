@@ -7,6 +7,6 @@ namespace TimeTableWpf.Services.TimeTable
 {
     public interface ITimeTableService
     {
-        Task<List<Models.TimeTable>> GetAllTimeTableAsync(string timeTableApiUrl, string token);
+        Task<List<Models.TimeTable>> GetAllTimeTableAsync(string token, string timeTableApiUrl, string param);
     }
 }

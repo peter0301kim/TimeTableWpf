@@ -47,23 +47,23 @@
             <StackPanel Margin="10">
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Campus" VerticalAlignment="Center" Width="100"/>
-                    <TextBox x:Name="txtCampus" Text="{Binding campus}" Width="200" />
+                    <TextBox x:Name="txtCampus" Text="{Binding Campus}" Width="200" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Class Room" VerticalAlignment="Center" Width="100"/>
-                    <TextBox x:Name="txtClassRoom" Text="{Binding classroom}" Width="200" />
+                    <TextBox x:Name="txtClassRoom" Text="{Binding Classroom}" Width="200" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Day of Week" VerticalAlignment="Center" Width="100"/>
-                    <ComboBox x:Name="cboDayOfWeek" Text="Select a Day of week" ItemsSource="{Binding dayofweek}" Width="200" 
-                        SelectedItem="{Binding selectedDayOfWeek}">
+                    <ComboBox x:Name="cboDayOfWeek" Text="Select a Day of week" ItemsSource="{Binding Dayofweek}" Width="200" 
+                        SelectedItem="{Binding SelectedDayOfWeek}">
                     </ComboBox>
                     <Button x:Name="btnGetTimeTable" Content ="Time Table" Margin="4,0,0,0" Width="100" Command="{Binding GetTimeTableCommand}" />
                 </StackPanel>
 
 
                 <ListView x:Name="SubjectListView" Background="AliceBlue"  Margin="4" Height="260"
-                          ItemsSource="{Binding Timetables}" Style="{StaticResource ListViewStyle}" >
+                          ItemsSource="{Binding TimeTables}" Style="{StaticResource ListViewStyle}" >
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <StackPanel>

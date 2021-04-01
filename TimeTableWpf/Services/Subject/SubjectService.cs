@@ -57,7 +57,7 @@ namespace TimeTableWpf.Services.Subject
             return lstSubjects;
         }
 
-        public async Task<List<Models.Subject>> GetAllSubjectsAsync(string destUrl, string token, string subjectName)
+        public async Task<List<Models.Subject>> GetAllSubjectsAsync(string token, string destUrl, string subjectName)
         {
             int pageSize = 100;
             int pageNumber = 1;

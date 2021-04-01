@@ -93,46 +93,6 @@ namespace RoomNavi_wpf.ViewModel
                 }
 
             }
-
-            
-
-            /*
-            HttpClient client = new HttpClient();
-
-            try
-            {
-                string token = _settingsService.AuthAccessToken;
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-
-                var result = await client.GetStringAsync(destUrl);
-                string content = result.ToString();
-                List<Subject> results = JsonConvert.DeserializeObject<List<Subject>>(content);
-
-                subjects = new ObservableCollection<Subject>(results);
-
-                client.Dispose();
-            }
-            catch (Exception ex)
-            {
-                string checkResult = "Error " + ex.ToString();
-                await DialogService.ShowAlertAsync(checkResult, "Error", "Close");
-
-                if (checkResult.IndexOf("Unauthorized") > 0)
-                {
-                    _settingsService.AuthAccessToken = "";
-                    client.Dispose();
-
-                    await Navigation.PopAsync();
-                    return;
-
-                }
-                client.Dispose();
-            }
-            */
         }
-
-
     }
-
-
 }
