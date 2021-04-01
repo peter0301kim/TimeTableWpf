@@ -29,7 +29,7 @@ namespace TimeTableWpf
         public MainWindow()
         {
             InitializeComponent();
-            OnLogIn();
+            //OnLogIn();
         }
 
         private void BtnMenuOpen_Click(object sender, RoutedEventArgs e)

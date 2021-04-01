@@ -71,7 +71,7 @@ namespace RoomNavi_wpf.ViewModel
 
             try
             {
-                var value = await SubjectService.GetAllSubjectsAsync(SettingsService.ApiSubjectUrl,SettingsService.AuthAccessToken, SubjectName);
+                var value = await SubjectService.GetAllSubjectsAsync(SettingsService.AuthAccessToken, SettingsService.ApiSubjectUrl, SubjectName);
 
 
                 Subjects = new ObservableCollection<Subject>(value);

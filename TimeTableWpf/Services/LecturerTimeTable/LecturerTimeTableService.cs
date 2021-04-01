@@ -24,9 +24,6 @@ namespace TimeTableWpf.Services.LecturerTimeTable
                 request.AddHeader("authorization", "Bearer " + token);
                 request.AddHeader("accept", "application/json");
 
-                request.AddParameter("lecturerName","Lee");
-                request.AddParameter("dayOfWeeks", "");
-
                 IRestResponse response = await client.ExecuteAsync(request);
                 if (response.StatusCode != HttpStatusCode.OK)
                 {
