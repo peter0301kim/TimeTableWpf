@@ -19,12 +19,12 @@ namespace TimeTableWpf.Services.TimeTable
             try
             {
                 var client = new RestClient(timeTableApiUrl);
-                var request = new RestRequest(param, Method.GET);
+                var request = new RestRequest(param, Method.Get);
 
                 request.AddHeader("authorization", "Bearer " + token);
                 request.AddHeader("accept", "application/json");
 
-                IRestResponse response = await client.ExecuteAsync(request);
+                RestResponse response = await client.ExecuteAsync(request);
                 if (response.StatusCode != HttpStatusCode.OK)
                 {
                     throw new Exception(response.Content.ToString());

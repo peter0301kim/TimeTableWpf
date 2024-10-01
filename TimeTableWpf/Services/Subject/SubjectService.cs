@@ -27,7 +27,7 @@ namespace TimeTableWpf.Services.Subject
             try
             {
                 var client = new RestClient(destUrl);
-                var request = new RestRequest(Method.GET);
+                var request = new RestRequest(destUrl,Method.Get);
 
                 //request.Resource = "{version}/token";
 
@@ -35,7 +35,7 @@ namespace TimeTableWpf.Services.Subject
                 //request.AddParameter("version", _version, ParameterType.UrlSegment);
                 //request.AddParameter("id", subjectId);
 
-                IRestResponse response = client.Execute(request);
+                RestResponse response = client.Execute(request);
 
                 if (response.StatusCode != HttpStatusCode.OK)
                 {
@@ -73,7 +73,7 @@ namespace TimeTableWpf.Services.Subject
             try
             {
                 var client = new RestClient(destUrl);
-                var request = new RestRequest(Method.GET);
+                var request = new RestRequest(destUrl,Method.Get);
 
                 //request.Resource = "{version}/token";
 
@@ -82,7 +82,7 @@ namespace TimeTableWpf.Services.Subject
                 //request.AddParameter("pageSize", 100);
                 //request.AddParameter("pageNumber", 1);
 
-                IRestResponse response = await client.ExecuteAsync(request);
+                RestResponse response = await client.ExecuteAsync(request);
 
                 if (response.StatusCode != HttpStatusCode.OK)
                 {

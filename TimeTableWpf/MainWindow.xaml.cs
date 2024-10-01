@@ -18,6 +18,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Threading;
 
 namespace TimeTableWpf
 {
@@ -29,8 +30,11 @@ namespace TimeTableWpf
         public MainWindow()
         {
             InitializeComponent();
-            //OnLogIn();
+
+            OnLogIn();
         }
+
+        
 
         private void BtnMenuOpen_Click(object sender, RoutedEventArgs e)
         {
@@ -45,7 +49,7 @@ namespace TimeTableWpf
             BtnMenuClose.Visibility = Visibility.Collapsed;
         }
 
-        private void OnLogIn()
+        private async Task OnLogIn()
         {
             var settingsService = DependencyInjector.Resolve<ISettingsService>();
             var loginService = DependencyInjector.Resolve<ILogInService>();

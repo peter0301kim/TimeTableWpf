@@ -16,12 +16,12 @@ namespace TimeTableWpf.Services.Lecturer
             try
             {
                 var client = new RestClient(timeTableApiUrl);
-                var request = new RestRequest(Method.GET);
+                var request = new RestRequest(timeTableApiUrl,Method.Get);
 
                 request.AddHeader("authorization", "Bearer " + token);
                 request.AddHeader("accept", "application/json");
 
-                IRestResponse response = await client.ExecuteAsync(request);
+                RestResponse response = await client.ExecuteAsync(request);
                 if (response.StatusCode != HttpStatusCode.OK)
                 {
                     throw new Exception(response.Content.ToString());
